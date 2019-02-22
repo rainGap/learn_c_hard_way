@@ -194,5 +194,7 @@ int read_scan(const char * fmt,...){
 
 ## ex26 
 
-TODO
+这个直接在vs2017里面写的
+用移位的操作来标记集合
+
 
