@@ -146,9 +146,53 @@ void increaseNum()
 达夫的设备
 主要原理是缩减比较的次数,批量复制内存,改成goto后会更容易理解,唯一使我感到困惑的是为什么8,而不是其他数.
 
-## ex24
+## ex24 各种io操作
 
+
+``` c
+//fgets遇到回车才会结束，不对空格和回车做任何转换就录入到缓冲区，结束后再往缓冲区写多一个\0，所以它是读一行数据
+char buf[1024] = { 0 };
+memset(buf, 0, sizeof(buf));
+fgets(buf,sizeof(buf),stdin); //读取输入的一行数据到缓冲区buf里
+
+//fscanf遇到空格或回车就结束，它会把空格或回车转换为\0，所以它是读一小段数据
+char buf[1024] = {0};
+memset(buf, 0, sizeof(buf));
+fscanf(stdin,"%s",buf);
+
+```
 TODO:
 列出 fgets fscanf 等函数的区别的应用场景
 
+## ex25 可变参数函数
+
+``` c
+//下面是 <stdarg.h> 里面重要的几个宏定义如下：
+typedef char* va_list;
+void va_start ( va_list ap, prev_param ); /* ANSI version */
+type va_arg ( va_list ap, type ); 
+void va_end ( va_list ap ); 
+
+//下面是自己定义的可变参数函数
+int read_scan(const char * fmt,...){
+  va_list argp;
+  va_start(argp,fmt);//通过va_start 初始化va_list
+
+  //读取第一个int类型的可变参数, 读完之后va_list指针会移动至下个参数
+  int out_int = va_arg(argp, int);;
+
+  //读取第一个int*类型的可变参数
+  int *p_out_int = va_arg(argp, int *);
+
+  *p_out_int = 2;
+
+  va_end(argp);//start 和 end经常同时出现,防止内存问题
+  
+
+}
+```
+
+## ex26 
+
+TODO
 
